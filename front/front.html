@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+
+<body>
+    <div id="app">    
+
+        <div v-for="movie in movies" >
+            <div class="movieCard">
+                <label>{{movie.name}}</label> <br>
+                <img :src="'images/' + movie.img" alt="">
+                <button class="viewMovie" @click="showModal(movie)">Ver película</button>
+            </div>
+        </div>
+
+        <div v-if="isModalVisible" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="closeModal">&times;</span>
+                <h2>Información de usuario</h2>
+                <form @submit.prevent="newVisit">
+                    <label>Nombre de usuario:</label>
+                    <input v-model="userName" type="text" placeholder="Ingresa tu nombre" required>
+                    <label>Edad:</label>
+                    <input v-model="userAge" type="number" placeholder="Ingresa tu edad" required>
+                    
+                        <label v-if="isUnder18">Correo de los padres:</label>
+                        <input v-if="isUnder18" v-model="parentsEmail" type="email" placeholder="Ingresa el correo de tus padres" required>
+                    
+                    <button class="send" type="submit">Enviar información</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="front.js"></script>
+</body>
+
+</html>
