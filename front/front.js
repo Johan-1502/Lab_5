@@ -16,7 +16,9 @@ new Vue({
                 { name: 'Superman', img: 'superman.jpg' },
                 { name: 'Transformers', img: 'Transformers.jpg' },
                 { name: 'Tron', img: 'Tron.jpg' },
-                { name: 'Venom 2', img: 'venom2.jpg' }
+                { name: 'Venom 2', img: 'venom2.jpg' },
+                { name: 'Cuervo', img: 'cuervo.jpg' },
+                { name: 'Fragmentado', img: 'fragmentado.jpg' },
             ],
             isModalVisible: false, 
             selectedMovie: '',

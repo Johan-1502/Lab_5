@@ -11,15 +11,16 @@
 
 <body>
     <div id="app">    
-
-        <div v-for="movie in movies" >
-            <div class="movieCard">
-                <label>{{movie.name}}</label> <br>
-                <img :src="'images/' + movie.img" alt="">
-                <button class="viewMovie" @click="showModal(movie)">Ver película</button>
+        <h1>Netflix</h1>
+        <div class="movies">
+            <div v-for="movie in movies">
+                <div class="movieCard">
+                    <h3 class="movieTitle">{{movie.name}}</h3>
+                    <img :src="'images/' + movie.img" alt="">
+                    <button class="viewMovie" @click="showModal(movie)">Ver película</button>
+                </div>
             </div>
         </div>
-
         <div v-if="isModalVisible" class="modal">
             <div class="modal-content">
                 <span class="close" @click="closeModal">&times;</span>
@@ -37,7 +38,6 @@
                 </form>
             </div>
         </div>
-
     </div>
     <script src="front.js"></script>
 </body>
