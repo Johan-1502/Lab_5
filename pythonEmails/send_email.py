@@ -9,7 +9,8 @@ load_dotenv()
 # Configuración del consumidor
 consumer_config = {
     'bootstrap.servers': 'localhost:29092',
-    'group.id': 'test-group',
+    # 'group.id': 'test-group',
+    'group.id': 'send_email',
     'auto.offset.reset': 'earliest'
 }
 

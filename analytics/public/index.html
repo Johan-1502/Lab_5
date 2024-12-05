@@ -12,13 +12,15 @@
 
 <body>
     <div id="app">
-        <h3></h3>
+        <h1>Top peliculas</h1>
         <div class="movies">
-            <div v-for="movie in movies">
-                <h3>{{movie.movieName}}</h3>
+            <div v-for="(movie, index) in movies" :key="index">
+                <h1> {{index+1}}</h1>
                 <div class="movieCard">
+                    <h3 class="movieTitle">{{movie.movieName}}</h3>
                     <img src="/front/images/alien.jpg" alt="">
-                    <p>Vistas: {{movie.counter}}</p>
+                    <p v-if="movie.counter!=1" class="viewMovie">Viste <strong>{{movie.movieName}}</strong> un total de {{movie.counter}} veces</p>
+                    <p v-if="movie.counter==1" class="viewMovie">Viste <strong>{{movie.movieName}}</strong> una vez</p>
                 </div>
             </div>
         </div>

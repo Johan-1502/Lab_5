@@ -57,7 +57,7 @@ new Vue({
             })
             let variable = await response.json();
             console.log(variable);
-            
+            this.isModalVisible = false
         }
     },
     mounted() {

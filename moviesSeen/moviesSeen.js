@@ -40,7 +40,8 @@ db.connect((err) => {
 });
 
 const consumer = kafka.consumer({
-  groupId: 'test-group',
+  // groupId: 'test-group',
+  groupId: 'moviesSeen',
   retry: {
     retries: 5,              // Número máximo de reintentos
     initialRetryTime: 300,   // Tiempo inicial entre reintentos (en ms)
