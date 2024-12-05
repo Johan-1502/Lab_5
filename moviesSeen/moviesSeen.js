@@ -26,7 +26,7 @@ const kafka = new Kafka({
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Sebas376C',
+  password: passwordDB,
   database: 'netflix'
 });
 
@@ -57,6 +57,7 @@ const runConsumer = async () => {
     eachMessage: async ({ topic, partition, message }) => {
       let textMessage = message.value.toString();
       let object = JSON.parse(textMessage);
+      console.log(object);      
       saveUser(object);
     },
   })
@@ -84,9 +85,11 @@ function getUser(nameUser) {
 }
 
 function saveUser(dataUser) {
+  
   const dateSeen = new Date(Date.now());
+  console.log(dataUser, dateSeen);
   const queryAddVehicle = 'INSERT INTO Users (nameUser, movie, dateSeen) VALUES (?, ?, ?)';
-  db.query(queryAddVehicle, [dataUser.nameUser, dataUser.movie, dateSeen], (err, Result) => {
+  db.query(queryAddVehicle, [dataUser.name, dataUser.movie, dateSeen], (err, Result) => {
     if (err) {
       console.error('Error al registrar los datos del usuario', err);
       return;
