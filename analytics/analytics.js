@@ -23,7 +23,14 @@ const kafka = new Kafka({
   brokers: ["localhost:29092"],
 })
 
-const consumer = kafka.consumer({ groupId: 'test-group' })
+const consumer = kafka.consumer({
+  groupId: 'test-group',
+  retry: {
+    retries: 5,              // Número máximo de reintentos
+    initialRetryTime: 300,   // Tiempo inicial entre reintentos (en ms)
+    maxRetryTime: 5000,      // Tiempo máximo entre reintentos
+  },
+});
 
 io.on('connection', (socket) => {
   logger(' WS ', 'connection    ', 'El front del coordinador se ha conectado con Sockets');

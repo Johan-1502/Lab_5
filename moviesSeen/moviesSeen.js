@@ -39,7 +39,14 @@ db.connect((err) => {
   console.log('Conexión a MySQL exitosa.');
 });
 
-const consumer = kafka.consumer({ groupId: 'test-group' })
+const consumer = kafka.consumer({
+  groupId: 'test-group',
+  retry: {
+    retries: 5,              // Número máximo de reintentos
+    initialRetryTime: 300,   // Tiempo inicial entre reintentos (en ms)
+    maxRetryTime: 5000,      // Tiempo máximo entre reintentos
+  },
+});
 
 io.on('connection', (socket) => {
   logger(' WS ', 'connection    ', 'El front del coordinador se ha conectado con Sockets');
@@ -57,7 +64,7 @@ const runConsumer = async () => {
     eachMessage: async ({ topic, partition, message }) => {
       let textMessage = message.value.toString();
       let object = JSON.parse(textMessage);
-      console.log(object);      
+      console.log(object);
       saveUser(object);
     },
   })
@@ -71,21 +78,26 @@ runConsumer()
     console.error('Failed to run kafka consumer', error);
   });
 
-function getUser(nameUser) {
-  const query = 'SELECT * FROM users WHERE nameUser = ?';
+  app.post('/getUser', async (req, res) => {
+    let data = req.body;
+    const query = 'SELECT * FROM users WHERE nameUser = ?';
 
-  db.query(query, [nameUser], (err, results) => {
-    if (err) {
-      console.error('Error al buscar el usuario:', err);
-      return;
-    }
-    io.emit('userInfo', results);
-    console.log("Se enviaron los datos del usuario con exito")
+    db.query(query, [data.name], (err, results) => {
+      if (err) {
+        console.error('Error al buscar el usuario:', err);
+        res.send({answer:'OK'})
+        return;
+      }
+      io.emit('userInfo', results);
+      console.log("Se enviaron los datos del usuario con exito")
+      res.send({answer:'OK', result: results})
+    });
   });
-}
+  
+
 
 function saveUser(dataUser) {
-  
+
   const dateSeen = new Date(Date.now());
   console.log(dataUser, dateSeen);
   const queryAddVehicle = 'INSERT INTO Users (nameUser, movie, dateSeen) VALUES (?, ?, ?)';

@@ -24,8 +24,8 @@ new Vue({
             }
             ],
             ipMonitorBack: 'localhost',
-            portMonitorBack: 6005,
-            socket: null,
+            portMonitorBack: 6006,
+            //socket: null,
             isModalVisible: true,
             nameUser: ''
         };
@@ -47,8 +47,17 @@ new Vue({
                 this.dataUser = data;
             });
         },
-        getUserInfo(){
-            this.socket.emit('getUserInfo', this.nameUser);
+        async getUserInfo(){
+            let response = await fetch(`http://${this.ipMonitorBack}:${this.portMonitorBack}/getUser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name:this.nameUser})
+            })
+            let variable = await response.json();
+            console.log(variable);
+            
         }
     },
     mounted() {
