@@ -2,8 +2,23 @@ new Vue({
     el: '#app',
     data() {
         return {
-            name: "nombre",
-            movies: [],
+            dataUser: [{
+                nameUser: 'sebas',
+                movie: 'Alien',
+                dateSeen: "2024 - 12-05T05:00:00.000Z"
+            },
+            {
+                nameUser: 'sebas',
+                movie: 'Fragmentado',
+                img: 'alien.jpg',
+                dateSeen: "2024 - 12-05T05:00:00.000Z"
+            },
+            {
+                nameUser: 'sebas',
+                movie: 'Superman',
+                dateSeen: "2024 - 12-05T05:00:00.000Z"
+            }
+            ],
             ipMonitorBack: 'localhost',
             portMonitorBack: 6005
         };
@@ -22,7 +37,7 @@ new Vue({
             });
 
             this.socket.on('userInfo', (data) => {
-                this.movies = data;
+                this.dataUser = data;
             });
         }
     },
