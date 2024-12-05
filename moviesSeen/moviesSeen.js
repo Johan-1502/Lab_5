@@ -84,8 +84,9 @@ function getUser(nameUser) {
 }
 
 function saveUser(dataUser) {
+  const dateSeen = new Date(Date.now());
   const queryAddVehicle = 'INSERT INTO Users (nameUser, movie, dateSeen) VALUES (?, ?, ?)';
-  db.query(queryAddVehicle, [dataUser.nameUser, dataUser.movie, dataUser.dateSeen], (err, vehicleResult) => {
+  db.query(queryAddVehicle, [dataUser.nameUser, dataUser.movie, dateSeen], (err, Result) => {
     if (err) {
       console.error('Error al registrar los datos del usuario', err);
       return;

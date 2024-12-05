@@ -3,7 +3,12 @@ new Vue({
     data() {
         return {
             name: "nombre",
-            movies: [],
+            movies: [
+                { movieName: 'Venom 2', counter: 3 },
+                { movieName: 'Tron', counter: 1 },
+                { movieName: 'Sherlock Holmes', counter: 1 }
+            ]
+            ,
             ipMonitorBack: 'localhost',
             portMonitorBack: 6005
         };

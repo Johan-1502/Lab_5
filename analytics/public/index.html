@@ -11,14 +11,27 @@
 </head>
 
 <body>
-    <div id="app">    
-        <div v-if="movies.length === 0">
-            No hay películas por el momento
-        </div>
-        <div v-for="movie in movies" class="card">
-            <label>Pelicula: {{movie.movieName}} Visitas: {{movie.counter}}</label>        
+    <div id="app">
+        <h3></h3>
+        <div class="movies">
+            <div v-for="movie in movies">
+                <h3>{{movie.movieName}}</h3>
+                <div class="movieCard">
+                    <img src="/front/images/alien.jpg" alt="">
+                    <p>Vistas: {{movie.counter}}</p>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- <div class="movies">
+        <div v-for="user in dataUser">
+            <div class="movieCard">
+                <h3 class="movieTitle">{{user.movie}}</h3>
+                <img :src="'/front/images/' + user.movie + '.jpg'" alt="">
+                <p class="viewMovie">Vista el {{user.dateSeen}}</p>
+            </div>
+        </div>
+    </div> -->
     <script src="analytics_front.js"></script>
 </body>
 
