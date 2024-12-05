@@ -26,7 +26,7 @@ app.post('/newVisit', async (req, res) => {
     await producer.connect();
     await producer.send({
       topic: "user-location-updates",
-      messages: [{value: `{"name":"${data.name}", "movie":"${data.movie}", "age":${data.age}, "mail":"${data.email}"}`}],
+      messages: [{value: `{"name":"${data.name}", "movie":"${data.movie}", "age":${data.age}, "mail":"${data.mail}"}`}],
     });
     await producer.disconnect();
   } catch (error) {
