@@ -3,7 +3,6 @@ new Vue({
     data() {
         return {
             movies: [
-                { name: 'Agente 007', img: 'agente007.jpg' },
                 { name: 'Alien', img: 'alien.jpg' },
                 { name: 'Avengers 3', img: 'avengers3.jpg' },
                 { name: 'Cuervo', img: 'cuervo.jpg' },
@@ -18,6 +17,7 @@ new Vue({
                 { name: 'Tron', img: 'Tron.jpg' },
                 { name: 'Venom 2', img: 'venom2.jpg' },
                 { name: 'Cuervo', img: 'cuervo.jpg' },
+                { name: 'Agente 007', img: 'agente007.jpg' },
                 { name: 'Fragmentado', img: 'fragmentado.jpg' },
             ],
             isModalVisible: false, 
