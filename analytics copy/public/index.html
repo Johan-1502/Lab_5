@@ -4,24 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shows más vistos</title>
+    <title>Recap mensual</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div id="app">
-        <h2>¡Hola {{dataUser[0].nameUser}}! Este es tu resumen del mes pasado.</h2>
-        <div v-for="user in dataUser">
-            <div class="movies">
+        <h1>¡Hola {{dataUser[0].nameUser}}! Este es tu resumen del mes pasado.</h1>
+        <div class="movies">
+            <div v-for="user in dataUser">
                 <div class="movieCard">
-                    <h3 class="movieTitle">{{dataUser.movie}}</h3>
-                    <img src="/front/images/agente007.jpg" alt="">
-                    <!-- <img :src="'../front/images/' + dataUser.img" alt=""> -->
+                    <h3 class="movieTitle">{{user.movie}}</h3>
+                    <img :src="'/front/images/' + user.movie + '.jpg'" alt="">
+                    <p class="viewMovie">Vista el {{user.dateSeen}}</p>
                 </div>
             </div>
         </div>
-
+        <div v-if="isModalVisible" class="modal">
+            <div class="modal-content">
+                <h2>Recap mensual</h2>
+                <form @submit.prevent="getUserInfo">
+                    <label>Nombre de usuario:</label>
+                    <input v-model="nameUser" type="text" placeholder="Ingresa tu nombre" required>
+                    <button class="send" type="submit">Ver recap</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="moviesSeen_front.js"></script>
 </body>

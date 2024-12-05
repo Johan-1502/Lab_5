@@ -4,13 +4,17 @@ new Vue({
         return {
             dataUser: [{
                 nameUser: 'sebas',
-                movie: 'Alien',
+                movie: 'alien',
                 dateSeen: "2024 - 12-05T05:00:00.000Z"
             },
             {
                 nameUser: 'sebas',
-                movie: 'Fragmentado',
-                img: 'alien.jpg',
+                movie: 'fragmentado',
+                dateSeen: "2024 - 12-05T05:00:00.000Z"
+            },
+            {
+                nameUser: 'sebas',
+                movie: 'fragmentado',
                 dateSeen: "2024 - 12-05T05:00:00.000Z"
             },
             {
@@ -20,7 +24,10 @@ new Vue({
             }
             ],
             ipMonitorBack: 'localhost',
-            portMonitorBack: 6005
+            portMonitorBack: 6005,
+            socket: null,
+            isModalVisible: true,
+            nameUser: ''
         };
     },
     methods: {
@@ -39,6 +46,9 @@ new Vue({
             this.socket.on('userInfo', (data) => {
                 this.dataUser = data;
             });
+        },
+        getUserInfo(){
+            this.socket.emit('getUserInfo', this.nameUser);
         }
     },
     mounted() {
