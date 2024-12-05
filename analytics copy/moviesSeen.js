@@ -15,9 +15,8 @@ var io = require('socket.io')(page);
 let ipAnalytics = process.env.IP_ANALYTICS;
 let portAnalytics = process.env.PORT_ANALYTICS;
 
-let movies = [];
-
-const { Kafka } = require("kafkajs")
+const { Kafka } = require("kafkajs");
+const { getCurves } = require('crypto');
 
 const kafka = new Kafka({
   clientId: "my-app",
@@ -44,24 +43,10 @@ const consumer = kafka.consumer({ groupId: 'test-group' })
 
 io.on('connection', (socket) => {
   logger(' WS ', 'connection    ', 'El front del coordinador se ha conectado con Sockets');
-  // Ordenar el arreglo de mayor a menor y obtener los 10 mayores
-  let topTen = movies.sort((a, b) => b.counter - a.counter)
-    .slice(0, 10);
-  io.emit('moviesList', topTen);
+  socket.on('getUserInfo', (data) => {
+    getUser(data);
+  });
 });
-
-function addVisit(name) {
-  if (movies.length > 0) {
-    const movieFound = movies.find(movie => movie.movieName === name);
-    if (movieFound) {
-      movieFound.counter++;
-    } else {
-      movies.push({ movieName: name, counter: 1 })
-    }
-  } else {
-    movies.push({ movieName: name, counter: 1 })
-  }
-}
 
 const runConsumer = async () => {
 
@@ -72,15 +57,7 @@ const runConsumer = async () => {
     eachMessage: async ({ topic, partition, message }) => {
       let textMessage = message.value.toString();
       let object = JSON.parse(textMessage);
-      let testObject = { name: object.movie };
-      addVisit(object.movie);
-      let topTen = movies.sort((a, b) => b.counter - a.counter)
-        .slice(0, 10);
-      getUser("sebas");
-      
-      // console.log(movies);
-      // console.log(topTen);
-      // console.log(object.name)
+      saveUser(object);
     },
   })
 }
@@ -99,10 +76,21 @@ function getUser(nameUser) {
   db.query(query, [nameUser], (err, results) => {
     if (err) {
       console.error('Error al buscar el usuario:', err);
-      return res.status(500).json({ success: false, message: 'Error interno de la base de datos' });
+      return;
     }
     io.emit('userInfo', results);
-    console.log(results)
+    console.log("Se enviaron los datos del usuario con exito")
+  });
+}
+
+function saveUser(dataUser) {
+  const queryAddVehicle = 'INSERT INTO Users (nameUser, movie, dateSeen) VALUES (?, ?, ?)';
+  db.query(queryAddVehicle, [dataUser.nameUser, dataUser.movie, dataUser.dateSeen], (err, vehicleResult) => {
+    if (err) {
+      console.error('Error al registrar los datos del usuario', err);
+      return;
+    }
+    console.log("Usuario registrado correctamente")
   });
 }
 

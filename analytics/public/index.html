@@ -7,19 +7,17 @@
     <title>Shows más vistos</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div id="app">    
-
         <div v-if="movies.length === 0">
             No hay películas por el momento
         </div>
-
         <div v-for="movie in movies" class="card">
             <label>Pelicula: {{movie.movieName}} Visitas: {{movie.counter}}</label>        
         </div>
-
     </div>
     <script src="analytics_front.js"></script>
 </body>
