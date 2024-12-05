@@ -24,7 +24,8 @@ const kafka = new Kafka({
 })
 
 const consumer = kafka.consumer({
-  groupId: 'test-group',
+  // groupId: 'test-group',
+  groupId: 'analytics',
   retry: {
     retries: 5,              // Número máximo de reintentos
     initialRetryTime: 300,   // Tiempo inicial entre reintentos (en ms)
