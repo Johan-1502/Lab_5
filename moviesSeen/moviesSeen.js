@@ -12,11 +12,11 @@ app.use(express.static('public'))
 var page = require('http').Server(app);
 var io = require('socket.io')(page);
 
-let ipAnalytics = process.env.IP_ANALYTICS;
-let portAnalytics = process.env.PORT_ANALYTICS;
+let ipMoviesSeen = process.env.IP_MOVIES_SEEN;
+let portMoviesSeen = process.env.PORT_MOVIES_SEEN;
+let passwordDB = process.env.PASSWORD_DB;
 
 const { Kafka } = require("kafkajs");
-const { getCurves } = require('crypto');
 
 const kafka = new Kafka({
   clientId: "my-app",
@@ -99,6 +99,6 @@ function logger(protocol, endpoint, message) {
   console.log(log);
 };
 
-page.listen(portAnalytics, function () {
-  logger('HTTP', 'Listen', `Servidor escuchando en http://${ipAnalytics}:${portAnalytics}`);
+page.listen(portMoviesSeen, function () {
+  logger('HTTP', 'Listen', `Servidor escuchando en http://${ipMoviesSeen}:${portMoviesSeen}`);
 });

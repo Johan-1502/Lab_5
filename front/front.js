@@ -42,6 +42,8 @@ new Vue({
             this.parentsEmail='';
         },
         async newVisit(){
+            console.log(this.parentsEmail);
+            
             let response = await fetch(`http://${this.ipProducer}:${this.portProduer}/newVisit`, {
                 method: 'POST',
                 headers: {
